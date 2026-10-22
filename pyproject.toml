@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+[project]
+name = "releaseguard-reliability"
+version = "0.1.0"
+description = "Deterministic provider resilience with retries, limits, breakers, and fallback."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = ["pydantic>=2.10,<3"]
+[project.optional-dependencies]
+demo = ["fastapi>=0.115,<1", "uvicorn>=0.34,<1"]
+dev = ["pytest>=8.3,<10", "httpx>=0.28,<1", "ruff>=0.11,<1", "build>=1.2,<2"]
+[project.scripts]
+releaseguard-reliability = "releaseguard_reliability.cli:main"
+[tool.hatch.build.targets.wheel]
+packages = ["src/releaseguard_reliability"]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501", "E701", "E702", "E741"]
